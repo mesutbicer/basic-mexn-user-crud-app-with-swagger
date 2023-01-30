@@ -50,7 +50,7 @@ const updateUserById = async (req, res) =>{
 
         //Yeni password gonderilirse bcrypt ile bunu hash leyip save etmek lazım !!!
         const passwordHash = await bcrypt.hash(password, 12);
-        const updatedUser = await Auth.create({username, email, password : passwordHash});
+        const updatedUser = {_id, username, email, password : passwordHash};
 
         const userInDbUpdated = await User.findByIdAndUpdate(id, updatedUser, {new: true});
 
