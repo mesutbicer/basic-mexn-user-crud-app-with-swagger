@@ -12,4 +12,5 @@ npm install
 ```
 npm start
 ```
-4 - Navigate to `http://localhost:5000`
+4 - Navigate to  [http://localhost:5000](http://localhost:5000)
+
