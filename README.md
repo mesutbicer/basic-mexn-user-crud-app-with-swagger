@@ -1,11 +1,11 @@
 # How to run this project on localhost
 1 - Clone the repository
 ```
-git clone  <git lab template url> <project_name>
+git clone git@github.com:mesutbicer/basic-mexn-user-crud-app-with-swagger.git
 ```
 2 - Install dependencies
 ```
-cd <project_name>
+cd basic-mexn-user-crud-app-with-swagger
 npm install
 ```
 3 - Build and run the project
