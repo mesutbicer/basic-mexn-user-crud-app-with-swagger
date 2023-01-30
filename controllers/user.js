@@ -48,6 +48,12 @@ const updateUserById = async (req, res) =>{
             return res.status(400).json({message: "Lütfen istekte bulunulan ID ile req.body ID si ni aynı şekilde gönderiniz !!!"});
         }
 
+        const userInDb = await User.findById(id);
+        if(userInDb.email !== email){
+            //Bad Request
+            return res.status(400).json({message: "Lütfen istekte bulunulan email ile req.body email'ini aynı şekilde gönderiniz !!!"});
+        }
+
         //Yeni password gonderilirse bcrypt ile bunu hash leyip save etmek lazım !!!
         const passwordHash = await bcrypt.hash(password, 12);
         const updatedUser = {_id, username, email, password : passwordHash};
