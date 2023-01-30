@@ -1,0 +1,531 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Prepared by Mesut Biçer (+90 535 374 3294, mesutbicer0@gmail.com)",
+    "version": "1.0.0",
+    "title": "BASIC MExN USER CRUD APP",
+    "license": {
+      "name": "License : MIT"
+    }
+  },
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Register for a new user",
+        "operationId": "register",
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "description": "The user to create",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "default": {
+                "username": "mesut1",
+                "email": "mesut1@mail.com",
+                "password": "Password1"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Status, newUser and userToken response"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/RegisterResponse"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login for a created user",
+        "operationId": "login",
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "description": "The user credentials to login",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "default": {
+                "email": "mesut1@mail.com",
+                "password": "password"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Status, user and token response"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/LoginResponse"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Lists all users if a valid Bearer Token used",
+        "operationId": "getUsers",
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Must be of the form 'SESSION {token}' where {token} is the session token returned from session service."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of users",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Users"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "summary": "Info for a specific user if a valid Bearer Token used",
+        "operationId": "getUserById",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Must be of the form 'SESSION {token}' where {token} is the session token returned from session service."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update/{userId}": {
+      "put": {
+        "summary": "Update for a specific user if a valid Bearer Token used",
+        "operationId": "updateUserById",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Must be of the form 'SESSION {token}' where {token} is the session token returned from session service."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to update",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "description": "The user to update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "default": {
+                "_id": "63d5426a4dfd50d62040109b",
+                "username": "mesut1",
+                "email": "mesut1@mail.com",
+                "password": "password"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/delete/{userId}": {
+      "delete": {
+        "summary": "Delete for a specific user if a valid Bearer Token used",
+        "operationId": "deleteUserById",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Must be of the form 'SESSION {token}' where {token} is the session token returned from session service."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout/{userId}": {
+      "get": {
+        "summary": "Logout for a created logged in user. (Warning : This approach is only for DEMO not PROD!)",
+        "operationId": "logoutUserById",
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Must be of the form 'SESSION {token}' where {token} is the session token returned from session service."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to logout",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Basic logout response"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/LogoutResponse"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "_id",
+        "username",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/User"
+      }
+    },
+    "RegisterResponse": {
+      "type": "object",
+      "required": [
+        "status",
+        "newUser",
+        "userToken"
+      ],
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "newUser": {
+          "type": "object"
+        },
+        "userToken": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginResponse": {
+      "type": "object",
+      "required": [
+        "status",
+        "user",
+        "token"
+      ],
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "LogoutResponse": {
+      "type": "object",
+      "required": [
+        "success",
+        "message"
+      ],
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

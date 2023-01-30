@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "864674ae-9823-40ea-b200-03e3aab2d6e0",
+		"name": "COLL_basic-mexn-user-crud-app-with-swagger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE_NEW_USER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"mesut2\",\r\n    \"email\": \"mesut2@mail.com\",\r\n    \"password\": \"password2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN_TEST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"mesut2@mail.com\",\r\n    \"password\": \"password2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_USERS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDU0MjZhNGRmZDUwZDYyMDQwMTA5YiIsImlhdCI6MTY3NDk5Mjc2MiwiZXhwIjoxNjc0OTk2MzYyfQ.LCtyc_NX9p9rOgeM6QEzobJJpXuJHGlOjehhiagJpvg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_USER_BY_ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDU0MjZhNGRmZDUwZDYyMDQwMTA5YiIsImlhdCI6MTY3NDkyMTgzOSwiZXhwIjoxNjc0OTI1NDM5fQ.hlvbGrrf7hm8ATrShJhCpD2483hvYO24TzMgxxJ5oY8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/63d5426a4dfd50d62040109b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"63d5426a4dfd50d62040109b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE_USER_BY_ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDU0MjZhNGRmZDUwZDYyMDQwMTA5YiIsImlhdCI6MTY3NDkyMTgzOSwiZXhwIjoxNjc0OTI1NDM5fQ.hlvbGrrf7hm8ATrShJhCpD2483hvYO24TzMgxxJ5oY8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"_id\": \"63d534ea7b1d705674a168f8\",\r\n        \"username\": \"mesut12\",\r\n        \"email\": \"mesut1@mail.com\",\r\n        \"password\": \"$2a$12$aCzxKhbF6U8tPFIaDSvaiOQx36c7KdCrJDFBVK4SY3dikoGRgnd5W\",\r\n        \"date\": \"2023-01-29T14:36:46.359Z\",\r\n        \"__v\": 0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/update/63d534ea7b1d705674a168f8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"update",
+						"63d534ea7b1d705674a168f8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_USER_BY_ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDU0MjZhNGRmZDUwZDYyMDQwMTA5YiIsImlhdCI6MTY3NDkyMTgzOSwiZXhwIjoxNjc0OTI1NDM5fQ.hlvbGrrf7hm8ATrShJhCpD2483hvYO24TzMgxxJ5oY8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/delete/63d534ea7b1d705674a168f8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"delete",
+						"63d534ea7b1d705674a168f8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT_TEST",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDYzNWE1Mjg1YzFjZDU4MjJmNTdjYSIsImlhdCI6MTY3NTAwMDcyOCwiZXhwIjoxNjc1MDA0MzI4fQ.gCp7PyExAbh8_6b2Yt3DCx-sQ1FOCsNw2b1n8AXwAlI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/logout/63d635a5285c1cd5822f57ca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"logout",
+						"63d635a5285c1cd5822f57ca"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
