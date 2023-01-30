@@ -1,6 +1,7 @@
 const User = require('../models/auth.js');
 const jwt = require("jsonwebtoken");
 const Auth = require("../models/auth.js");
+const bcrypt = require("bcryptjs");
 
 const getUsers = async (req, res) =>{
     try{
@@ -40,10 +41,18 @@ const getUserById = async (req, res) =>{
 const updateUserById = async (req, res) =>{
     try{
         const {id} = req.params;
+        const {_id, username, email, password} = req.body;
 
-        //Yeni password gonderilirse bcrypt ile bunu hash leyip save etmek lazım !!! TODO : ...
+        if(_id !== id){
+            //Bad Request
+            return res.status(400).json({message: "Lütfen istekte bulunulan ID ile req.body ID si ni aynı şekilde gönderiniz !!!"});
+        }
 
-        const userInDbUpdated = await User.findByIdAndUpdate(id, req.body, {new: true});
+        //Yeni password gonderilirse bcrypt ile bunu hash leyip save etmek lazım !!!
+        const passwordHash = await bcrypt.hash(password, 12);
+        const updatedUser = await Auth.create({username, email, password : passwordHash});
+
+        const userInDbUpdated = await User.findByIdAndUpdate(id, updatedUser, {new: true});
 
         if(!userInDbUpdated){
             //Bad Request
