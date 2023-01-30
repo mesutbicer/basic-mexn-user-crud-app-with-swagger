@@ -1,7 +1,7 @@
 # How to run this project on localhost
 1 - Clone the repository
 ```
-git clone git@github.com:mesutbicer/basic-mexn-user-crud-app-with-swagger.git
+git clone https://github.com/mesutbicer/basic-mexn-user-crud-app-with-swagger.git
 ```
 2 - Install dependencies
 ```
